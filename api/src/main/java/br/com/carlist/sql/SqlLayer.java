@@ -20,7 +20,7 @@ public class SqlLayer {
 
             this.table = table;
             this.connect = DriverManager.getConnection(
-                "jdbc:mysql://localhost/trabandre?user=root&password=mypass"
+                "jdbc:mysql://mysql:3306/cars_crud", "root", "mypass"
             );
         } catch (Exception e) {
             System.out.println(e);
@@ -29,7 +29,7 @@ public class SqlLayer {
 
     private PreparedStatement getPrepareStatement(String query) throws SQLException {
         PreparedStatement preparedStatement =
-        this.connect.prepareStatement(query);
+            this.connect.prepareStatement(query);
 
         preparedStatement.setString(1, this.table);
         return preparedStatement;

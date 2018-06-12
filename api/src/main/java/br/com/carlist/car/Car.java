@@ -1,6 +1,6 @@
 package br.com.carlist.car;
 
-class Car {
+public class Car {
     public Integer id = null;
     public String name;
     public String type;

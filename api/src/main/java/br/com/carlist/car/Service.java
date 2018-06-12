@@ -2,9 +2,7 @@ package br.com.carlist.car;
 
 import br.com.carlist.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.sql.ResultSet;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 class Service extends SqlLayer {

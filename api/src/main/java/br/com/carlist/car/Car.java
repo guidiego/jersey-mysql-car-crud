@@ -5,7 +5,12 @@ public class Car {
     public String name;
     public String type;
 
-    public Car(String name, String type) {
+    public Car() {
+
+    }
+
+    public Car(int id, String name, String type) {
+        this.id = id;
         this.name = name;
         this.type = type;
     }

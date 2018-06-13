@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class SqlLayer {
     private String table;
-    private Connection connect = null;
+    protected Connection connection = null;
     private String selectQuery = "select * from ?";
     private String insertQuery = "insert into ? ";
     private String updateQuery = "update ? set ? where id = ?";
@@ -19,58 +19,60 @@ public class SqlLayer {
             Class.forName("com.mysql.jdbc.Driver");
 
             this.table = table;
-            this.connect = DriverManager.getConnection(
-                "jdbc:mysql://mysql:3306/cars_crud", "root", "mypass"
+            this.connection = DriverManager.getConnection(
+                "jdbc:mysql://0.0.0.0:3306/cars_crud", "root", "mypass"
             );
+
+            System.out.println(this.connection);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    private PreparedStatement getPrepareStatement(String query) throws SQLException {
-        PreparedStatement preparedStatement =
-            this.connect.prepareStatement(query);
+    // private PreparedStatement getPrepareStatement(String query) throws SQLException {
+    //     PreparedStatement preparedStatement =
+    //         this.connect.prepareStatement(query);
 
-        preparedStatement.setString(1, this.table);
-        return preparedStatement;
-    }
+    //     preparedStatement.setString(1, this.table);
+    //     return preparedStatement;
+    // }
 
-    public void insert(String insertColumns, String insertValues, String[] params) throws SQLException {
-        PreparedStatement ps = this.getPrepareStatement(
-            this.insertQuery + insertColumns + " VALUES " + insertValues
-        );
+    // public void insert(String insertColumns, String insertValues, String[] params) throws SQLException {
+    //     PreparedStatement ps = this.getPrepareStatement(
+    //         this.insertQuery + insertColumns + " VALUES " + insertValues
+    //     );
 
-        for (int i = 0; i < params.length; i++) {
-            ps.setString(i + 1, params[i]);
-        }
+    //     for (int i = 0; i < params.length; i++) {
+    //         ps.setString(i + 1, params[i]);
+    //     }
 
-        ps.executeQuery();
-    }
+    //     ps.executeQuery();
+    // }
 
-    public void update(String updateStr, String id) throws SQLException {
-        PreparedStatement ps = this.getPrepareStatement(this.updateQuery);
+    // public void update(String updateStr, String id) throws SQLException {
+    //     PreparedStatement ps = this.getPrepareStatement(this.updateQuery);
 
-        ps.setString(2, updateStr);
-        ps.setString(3, id);
+    //     ps.setString(2, updateStr);
+    //     ps.setString(3, id);
 
-        ps.executeQuery();
-    }
+    //     ps.executeQuery();
+    // }
 
-    public void delete(Integer id) throws SQLException {
-        PreparedStatement ps = this.getPrepareStatement(this.removeQuery);
-        ps.setString(2, id.toString());
+    // public void delete(Integer id) throws SQLException {
+    //     PreparedStatement ps = this.getPrepareStatement(this.removeQuery);
+    //     ps.setString(2, id.toString());
 
-        ps.executeQuery();
-    }
+    //     ps.executeQuery();
+    // }
 
-    public ResultSet select() throws SQLException {
-        PreparedStatement ps = this.getPrepareStatement(this.selectQuery);
-        return ps.executeQuery();
-    }
+    // public ResultSet select() throws SQLException {
+    //     PreparedStatement ps = this.getPrepareStatement(this.selectQuery);
+    //     return ps.executeQuery();
+    // }
 
-    public ResultSet selectWhere(Integer id) throws SQLException {
-        PreparedStatement ps = this.getPrepareStatement(this.selectQuery + " where id = ?");
-        ps.setString(2, id.toString());
-        return ps.executeQuery();
-    }
+    // public ResultSet selectWhere(Integer id) throws SQLException {
+    //     PreparedStatement ps = this.getPrepareStatement(this.selectQuery + " where id = ?");
+    //     ps.setString(2, id.toString());
+    //     return ps.executeQuery();
+    // }
 }

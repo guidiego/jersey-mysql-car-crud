@@ -4,7 +4,8 @@
   "description": "web app for trabandre",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "gulp js",
+    "build": "gulp",
+    "watch": "gulp watch",
     "start": "node server.js"
   },
   "author": "",

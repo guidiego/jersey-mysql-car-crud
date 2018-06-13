@@ -19,3 +19,9 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+  webapp:
+    build: ./webapp
+    links:
+      - api
+    ports:
+      - 3000:3000

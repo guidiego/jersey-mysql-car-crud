@@ -78,7 +78,7 @@
                                         <i class="far fa-save"></i>
                                     </button>
 
-                                    <button type="button" ng-click="deleteCar(models[car.id])"
+                                    <button type="button" ng-click="deleteCar(car.id)"
                                         class="btn btn-danger btn-sm">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
@@ -95,7 +95,7 @@
                                         id="type" placeholder="Marca do Carro" ng-model="models.new.type" />
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" ng-click="saveCar(models.new)" class="btn btn-success btn-sm">
+                                    <button type="button" ng-click="saveCar(models.new); models.new = null" class="btn btn-success btn-sm">
                                         <i class="far fa-save"></i>
                                     </button>
                                     <button type="button" ng-click="models.new = null" class="btn btn-warning btn-sm">

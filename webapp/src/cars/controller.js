@@ -12,6 +12,8 @@
         $scope.cars = [];
         $scope.models = {};
 
+        loadCars();
+
         // SET CAR TO LIST OF MODEL
         $scope.editCar = function (id) {
             var car = find($scope.cars, function (c) {
@@ -25,11 +27,8 @@
         $scope.saveCar = function (model) {
             if (model.id) {
                 return CarsService.update(model).then(function () {
-                    $scope.cars = $scope.cars.map(function (car) {
-                        if (car.id == model.id) {
-                            return model;
-                        }
-                    });
+                    loadCars();
+                    $scope.models[model.id] = null;
                 });
             }
 
@@ -40,16 +39,16 @@
 
         $scope.deleteCar = function (id) {
             CarsService.remove(id).then(function () {
-                $scope.cars = $scope.cars.filter(function (car) {
-                    return car.id != id;
-                });
+                loadCars();
             });
         }
 
         // Load Cars
-        CarsService.get().then(function (cars) {
-            $scope.cars = cars;
-        });
+        function loadCars() {
+            CarsService.get().then(function (cars) {
+                $scope.cars = cars;
+            });
+        }
     }
 
     // Util Function

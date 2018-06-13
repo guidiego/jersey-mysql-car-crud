@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:latest
 
-ADD ./webapp /webapp
+ADD ./ /webapp
 
 WORKDIR /webapp
 

@@ -1,33 +1,21 @@
-version: "2"
+version: "3"
+
 services:
   mysql:
-    image: mysql
-    command: --init-file /db/init.sql
-    ports:
-      - 3306:3306
+    image: mysql:5.7
+    command: mysqld --lower_case_table_names=1
+    restart: always
     environment:
-      MYSQL_DATABASE: "cars_crud"
-      MYSQL_ROOT_PASSWORD: "mypass"
+      - MYSQL_DATABASE=cars_crud
+      - MYSQL_ROOT_PASSWORD=mypass
+      - MYSQL_USER=root
     volumes:
       - ./db:/db
-    networks:
-      - app_network
-  admin:
-    image: phpmyadmin/phpmyadmin
-    links:
-      - mysql
-    ports:
-      - 8000:80
-    networks:
-      - app_network
   api:
     build: ./api
     links:
       - mysql
     ports:
-      - 8080:8080
-    networks:
-      - app_network
-networks:
-  app_network:
-    driver: bridge
+      - "8080:8080"
+    depends_on:
+      - mysql

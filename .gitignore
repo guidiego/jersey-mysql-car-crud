@@ -1,2 +1,4 @@
 api/target
 api/.settings
+webapp/dist
+webapp/node_modules

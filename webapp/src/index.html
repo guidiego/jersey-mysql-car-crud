@@ -4,9 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <title>Teste Server</title>
+
+    <style>
+        body {
+            background: #ecf0f1;
+        }
+
+        .table {
+            margin-top: 50px;
+            border: 1px solid #dee2e6;
+            background: #FFF;
+        }
+
+        .table tr td {
+            font-weight: 300;
+            padding: 0.45rem;
+        }
+
+        .table .editing {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .table .editing td {
+            border-color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
-    Testing Server
+    <div ng-app="app">
+        <div class="container" ng-controller="CarsController">
+            <h2 class="text-center">Controle de Carros</h2>
+            <div class="row">
+                <div class="col-sm-8 offset-md-2">
+                    <table class="table">
+                        <col width="10%">
+                        <col width="37%">
+                        <col width="37%">
+                        <col width="16%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th>Modelo</th>
+                                <th>Marca</th>
+                                <th class="text-center" >Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="car in cars" ng-class="{editing: !!models[car.id]}">
+                                <td class="text-center">{{car.id}}</td>
+                                <td ng-show="!!models[car.id]">
+                                    <input type="text" class="form-control"
+                                        id="name" placeholder="Modelo do Carro" ng-model="models[car.id].name" />
+                                </td>
+                                <td ng-hide="!!models[car.id]">{{car.name}}</td>
+                                <td ng-show="!!models[car.id]">
+                                    <input type="text" class="form-control"
+                                        id="type" placeholder="Marca do Carro" ng-model="models[car.id].type" />
+                                </td>
+                                <td ng-hide="!!models[car.id]">{{car.type}}</td>
+                                <td class="text-center">
+                                    <button type="button" ng-click="editCar(car.id)"
+                                        class="btn btn-primary btn-sm" ng-hide="!!models[car.id]">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+
+                                    <button type="button" ng-click="saveCar(models[car.id])"
+                                        class="btn btn-success btn-sm" ng-show="!!models[car.id]">
+                                        <i class="far fa-save"></i>
+                                    </button>
+
+                                    <button type="button" ng-click="deleteCar(models[car.id])"
+                                        class="btn btn-danger btn-sm">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-show="!!models.new">
+                                <td></td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                        id="name" placeholder="Modelo do Carro" ng-model="models.new.name" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                        id="type" placeholder="Marca do Carro" ng-model="models.new.type" />
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" ng-click="saveCar(models.new)" class="btn btn-success btn-sm">
+                                        <i class="far fa-save"></i>
+                                    </button>
+                                    <button type="button" ng-click="models.new = null" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-hide="!!models.new">
+                                <th colspan="4">
+                                    <button class="btn btn-primary btn-block" ng-click="models.new = {}">
+                                        <i class="far fa-plus-square"></i> Adicionar novo Carro
+                                    </button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="/dist/app.min.js"></script>
 </body>
 </html>

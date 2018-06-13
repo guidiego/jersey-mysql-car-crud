@@ -18,11 +18,24 @@ public class Service {
     public Service() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            String uri = System.getenv("DB_URI");
+            String port = System.getenv("DB_PORT");
+            String usr = System.getenv("DB_USER");
+            String pass = System.getenv("DB_PASS");
 
-            this.connection = DriverManager.getConnection(
-                "jdbc:mysql://0.0.0.0:3306/cars_crud", "root", "mypass"
-            );
+            String jdbc_uri = "jdbc:mysql://";
+            jdbc_uri += uri != null ? uri : "0.0.0.0";
+            jdbc_uri += ":" + (port != null ? port : "3306") + "/";
+            jdbc_uri += "cars_crud";
 
+            if (usr == null) {
+                usr = "root";
+            }
+
+            System.out.println(jdbc_uri);
+            System.out.println(usr);
+            System.out.println(pass);
+            this.connection = DriverManager.getConnection(jdbc_uri, usr, pass);
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -9,7 +9,7 @@
     CarsService.$inject = ['$http'];
 
     function CarsService($http) {
-        var baseUrl = "http://localhost:8080/car"
+        var baseUrl = API_PROTOCOL + API_URL + API_PORT + "/car"
 
         this.get = function () {
             return $http.get(baseUrl);

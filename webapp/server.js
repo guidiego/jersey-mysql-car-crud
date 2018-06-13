@@ -6,6 +6,14 @@ http.createServer(function (request, response) {
     var filepath = "." + request.url;
     var extname = path.extname(filepath);
     var contentType = 'text/html';
+    var ENV_VARS = '<script>'
+
+    ENV_VARS += 'window.API_PROTOCOL="' + (process.env.API_PROTOCOL || 'http') + '://";';
+    ENV_VARS += 'window.API_URL="' + (process.env.API_URL || 'localhost') + '";';
+    ENV_VARS += 'window.API_PORT=":' + (process.env.API_PORT || '8080') + '";';
+
+    ENV_VARS += '</script>';
+
     switch (extname) {
         case '.js':
             contentType = 'text/javascript';
@@ -39,7 +47,8 @@ http.createServer(function (request, response) {
         });
     }
 
-    fs.readFile('./dist/index.html', function (error, content) {
+    fs.readFile('./dist/index.html', 'utf-8', function (error, content) {
+        content = content.replace('<script', ENV_VARS + '\n<script');
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(content, 'utf-8');
     });

@@ -3,7 +3,7 @@ version: "3"
 services:
   mysql:
     image: mysql:5.7
-    command: mysqld --lower_case_table_names=1
+    command: --init-file /db/init.sql
     restart: always
     environment:
       - MYSQL_DATABASE=cars_crud
@@ -19,9 +19,17 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+    environment:
+      - DB_URI=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=mypass
   webapp:
     build: ./webapp
     links:
       - api
     ports:
       - 3000:3000
+    environment:
+      - API_URI=api
+      - API_PORT=8080

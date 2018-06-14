@@ -17,7 +17,14 @@
         .table {
             margin-top: 50px;
             border: 1px solid #dee2e6;
+        }
+
+        .table tr {
             background: #FFF;
+        }
+
+        .table tr.load {
+            opacity: 0.5;
         }
 
         .table tr td {
@@ -32,6 +39,15 @@
 
         .table .editing td {
             border-color: #2c3e50;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 1px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -55,7 +71,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="car in cars" ng-class="{editing: !!models[car.id]}">
+                            <tr ng-repeat="car in cars" ng-class="{editing: !!models[car.id], load: !car.id}">
                                 <td class="text-center">{{car.id}}</td>
                                 <td ng-show="!!models[car.id]">
                                     <input type="text" class="form-control"
@@ -116,7 +132,7 @@
             </div>
         </div>
     </div>
-
+    <footer> Feito com <i class="fas fa-heart" style="font-size: 12px;"></i> e com <i class="fab fa-java" style="font-size: 20px;"></i> por <a href="https://github.com/guidiego/jersey-mysql-car-crud">@GuiDiego</a></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script src="/dist/app.min.js"></script>
 </body>

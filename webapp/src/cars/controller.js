@@ -32,8 +32,10 @@
                 });
             }
 
-            return CarsService.insert(model).then(function (car) {
-                $scope.cars.push(car);
+            $scope.cars.push(model);
+
+            return CarsService.insert(model).then(function () {
+                loadCars();
             });
         }
 

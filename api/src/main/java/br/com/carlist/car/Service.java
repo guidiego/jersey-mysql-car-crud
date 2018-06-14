@@ -32,9 +32,6 @@ public class Service {
                 usr = "root";
             }
 
-            System.out.println(jdbc_uri);
-            System.out.println(usr);
-            System.out.println(pass);
             this.connection = DriverManager.getConnection(jdbc_uri, usr, pass);
         } catch (Exception e) {
             System.out.println(e);
